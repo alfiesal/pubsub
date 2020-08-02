@@ -20,5 +20,9 @@
         "psr-4": {
             "Alfiesal\\PubSub\\": "src/"
         }
+    },
+    "scripts": {
+        "cs:fix": "php-cs-fixer fix",
+        "spec:run": "vendor/bin/phpspec run"
     }
 }

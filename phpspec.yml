@@ -1,0 +1,4 @@
+suites:
+  pubsub:
+    namespace: Alfiesal\PubSub
+    psr4_prefix: Alfiesal\PubSub
