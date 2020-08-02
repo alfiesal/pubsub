@@ -1,4 +1,4 @@
-name: "Spec"
+name: "Static Analyze"
 
 on:
   push:
@@ -13,10 +13,6 @@ jobs:
 
     strategy:
       matrix:
-        dependencies:
-          - "locked"
-          - "lowest"
-          - "highest"
         php-version:
           - "7.3"
           - "7.4"
@@ -36,18 +32,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
-      - name: "Install lowest dependencies"
-        if: ${{ matrix.dependencies == 'lowest' }}
-        run: "composer update --prefer-lowest --no-interaction --no-progress --no-suggest"
-
-      - name: "Install highest dependencies"
-        if: ${{ matrix.dependencies == 'highest' }}
-        run: "composer update --no-interaction --no-progress --no-suggest"
-
-      - name: "Install locked dependencies"
-        if: ${{ matrix.dependencies == 'locked' }}
+      - name: "Install dependencies"
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      - name: "Spec"
-        run: "composer test:spec"
-
+      - name: "Static Analyze"
+        run: "composer static:analyze"
