@@ -4,7 +4,7 @@ $finder = PhpCsFixer\Finder::create()
     ->files()
     ->in([
         __DIR__ . '/src',
-        __DIR__ . '/tests',
+        __DIR__ . '/spec',
     ])
     ->notName('*.phpt');
 

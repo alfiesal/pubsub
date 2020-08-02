@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Alfiesal\PubSub;
 
 use Alfiesal\PubSub\Message;
@@ -7,12 +9,12 @@ use PhpSpec\ObjectBehavior;
 
 class MessageSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
         $this->beConstructedWith('test');
     }
 
-    function it_is_initializable(): void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(Message::class);
     }
