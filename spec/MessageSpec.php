@@ -11,8 +11,14 @@ final class MessageSpec extends ObjectBehavior
 {
     private const NAME = 'name';
     private const PAYLOAD = ['key' => 'value'];
-    private const HEADERS = ['header-name-1' => 'header-value-1', 'header-name-2' => 'header-value-2'];
-    private const PROPERTIES = ['property-name-1' => 'property-value-1', 'property-name-2' => 'property-value-2'];
+    private const HEADERS = [
+        'header-name-1' => 'header-value-1',
+        'header-name-2' => 'header-value-2',
+    ];
+    private const PROPERTIES = [
+        'property-name-1' => 'property-value-1',
+        'property-name-2' => 'property-value-2',
+    ];
 
     public function let()
     {

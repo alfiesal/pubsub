@@ -9,7 +9,10 @@
             "email": "salomonsalfie@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php-amqplib/php-amqplib": "^2.11",
+        "ext-json": "*"
+    },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "infection/infection": "^0.16.4",
@@ -22,6 +25,10 @@
         }
     },
     "scripts": {
+        "commit": [
+            "@cs:fix",
+            "@test:spec"
+        ],
         "build": [
             "@static:analyze",
             "@test:spec"
