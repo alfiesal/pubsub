@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Alfiesal\PubSub\Transport\AMQP;
 
-use Alfiesal\PubSub\ConnectionFactory;
+use Alfiesal\PubSub\ContextInterface;
+use Alfiesal\PubSub\Transport\TransportInterface;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-class AMQPFactory implements ConnectionFactory
+class AMQPFactory implements TransportInterface
 {
     private $connection;
 
@@ -30,7 +31,7 @@ class AMQPFactory implements ConnectionFactory
         $this->connection = $connection;
     }
 
-    public function createContext(): Context
+    public function createContext(): ContextInterface
     {
         $channel = $this->connection->channel();
         $channel->basic_qos(null, 50, null);

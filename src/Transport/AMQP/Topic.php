@@ -32,7 +32,6 @@ class Topic extends BaseTopic
         }
         parent::__construct($name);
 
-        $this->name = $name;
         $this->type = $type;
         $this->passive = $passive;
         $this->durable = $durable;

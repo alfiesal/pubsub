@@ -13,7 +13,7 @@ class InvalidTopicType extends Exception
         $message = sprintf(
             'Invalid AMQP topic(exchange) type. Passed type %s, instead of one of %s',
             $topicType,
-            implode(',', Topic::ALLOWED_TYPES)
+            implode(',', AMQPTopic::ALLOWED_TYPES)
         );
 
         parent::__construct($message);

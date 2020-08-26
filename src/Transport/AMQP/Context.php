@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Alfiesal\PubSub\Transport\AMQP;
 
-use Alfiesal\PubSub\Context as ContextInterface;
-use Alfiesal\PubSub\Producer;
+use Alfiesal\PubSub\ContextInterface;
+use Alfiesal\PubSub\ProducerInterface;
 use Alfiesal\PubSub\Queue;
 use Alfiesal\PubSub\Topic;
-use Alfiesal\PubSub\Transport\AMQP\Producer as AMQPProducer;
 use Alfiesal\PubSub\Transport\AMQP\Queue as AMQPQueue;
 use Alfiesal\PubSub\Transport\AMQP\Topic as AMQPTopic;
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -25,7 +24,7 @@ class Context implements ContextInterface
         $this->channel = $channel;
     }
 
-    public function createTopic(string $name): Topic
+    public function createTopic(string $name = ''): Topic
     {
         return new Topic($name);
     }
@@ -64,9 +63,9 @@ class Context implements ContextInterface
         );
     }
 
-    public function createProducer(string $name): Producer
+    public function createProducer(string $name): ProducerInterface
     {
-        return new AMQPProducer($name, $this->channel);
+        return new Producer($name, $this->channel);
     }
 
     public function createConsumer(string $name): void

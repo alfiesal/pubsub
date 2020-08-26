@@ -24,6 +24,7 @@ class Queue extends BaseQueue
         bool $autoDelete = false
     ) {
         parent::__construct($name);
+
         $this->passive = $passive;
         $this->durable = $durable;
         $this->exclusive = $exclusive;

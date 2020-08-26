@@ -6,5 +6,5 @@ namespace Alfiesal\PubSub;
 
 interface ProducerInterface
 {
-    public function publish(Message $message, Topic $topic): void;
+    public function dispatch(Message $message, Topic $topic): void;
 }
