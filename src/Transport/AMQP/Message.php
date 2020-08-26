@@ -25,10 +25,7 @@ class Message extends BaseMessage
 
     private function applicationHeaders(): array
     {
-        $headers = array_merge(
-            $this->headers(),
-            $this->properties()
-        );
+        $headers = $this->headers();
 
         $headers['timestamp'] = (new \DateTime('now'))->format(DateTimeInterface::RFC3339_EXTENDED);
 

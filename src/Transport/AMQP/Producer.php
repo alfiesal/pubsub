@@ -36,7 +36,8 @@ class Producer implements ProducerInterface
 
         $this->channel->basic_publish(
             $amqpMessage,
-            $topic->name()
+            $topic->name(),
+            $message->name()
         );
     }
 }

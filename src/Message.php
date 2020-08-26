@@ -10,16 +10,13 @@ class Message implements MessageInterface
 
     private $headers;
 
-    private $properties;
-
     private $payload;
 
-    public function __construct(string $name, array $payload, array $headers = [], array $properties = [])
+    public function __construct(string $name, array $payload, array $headers = [])
     {
         $this->name = $name;
         $this->payload = $payload;
         $this->headers = $headers;
-        $this->properties = $properties;
     }
 
     public function name(): string
@@ -40,15 +37,5 @@ class Message implements MessageInterface
     public function header(string $name, $default = null)
     {
         return $this->headers[$name] ?? $default;
-    }
-
-    public function properties(): array
-    {
-        return $this->properties;
-    }
-
-    public function property(string $name, $default = null)
-    {
-        return $this->properties[$name] ?? $default;
     }
 }
