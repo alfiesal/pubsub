@@ -15,28 +15,32 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
-        "infection/infection": "^0.16.4 || ^0.17.0",
         "phpstan/phpstan": "^0.12.34",
-        "phpspec/phpspec": "^6.2"
+        "phpspec/phpspec": "^6.2",
+        "phpunit/phpunit": "^9"
     },
     "autoload": {
         "psr-4": {
-            "Alfiesal\\PubSub\\": "src/"
+            "Alfiesal\\PubSub\\": "src/",
+            "Alfiesal\\PubSub\\Tests\\": "tests/"
         }
     },
     "scripts": {
         "commit": [
             "@cs:fix",
-            "@test:spec"
+            "@test:spec",
+            "@test:phpunit"
         ],
         "build": [
             "@static:analyze",
-            "@test:spec"
+            "@test:spec",
+            "@test:phpunit"
         ],
         "static:analyze": [
             "php-cs-fixer fix --dry-run"
         ],
         "cs:fix": "php-cs-fixer fix",
-        "test:spec": "vendor/bin/phpspec run"
+        "test:spec": "vendor/bin/phpspec run",
+        "test:phpunit": "vendor/bin/phpunit tests"
     }
 }

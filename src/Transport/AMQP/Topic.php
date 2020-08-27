@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Alfiesal\PubSub\Transport\AMQP;
 
 use Alfiesal\PubSub\Topic as BaseTopic;
+use Alfiesal\PubSub\Transport\AMQP\Exceptions\InvalidTopicType;
 
 class Topic extends BaseTopic
 {
-    public const ALLOWED_TYPES = [
+    public const VALID_TYPES = [
         'direct',
         'fanout',
         'topic',
@@ -27,7 +28,7 @@ class Topic extends BaseTopic
         bool $passive = false,
         bool $durable = true
     ) {
-        if (!in_array($type, self::ALLOWED_TYPES)) {
+        if (!in_array($type, self::VALID_TYPES)) {
             throw new InvalidTopicType($type);
         }
         parent::__construct($name);

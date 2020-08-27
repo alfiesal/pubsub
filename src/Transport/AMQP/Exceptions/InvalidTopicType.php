@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Alfiesal\PubSub\Transport\AMQP;
+namespace Alfiesal\PubSub\Transport\AMQP\Exceptions;
 
+use Alfiesal\PubSub\Transport\AMQP\Topic;
 use PhpSpec\Exception\Exception;
 
 class InvalidTopicType extends Exception
@@ -13,7 +14,7 @@ class InvalidTopicType extends Exception
         $message = sprintf(
             'Invalid AMQP topic(exchange) type. Passed type %s, instead of one of %s',
             $topicType,
-            implode(',', AMQPTopic::ALLOWED_TYPES)
+            implode(',', Topic::VALID_TYPES)
         );
 
         parent::__construct($message);
