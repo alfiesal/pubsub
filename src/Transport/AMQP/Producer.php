@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Alfiesal\PubSub\Transport\AMQP;
 
+use Alfiesal\PubSub\MessageInterface;
 use Alfiesal\PubSub\ProducerInterface;
+use Alfiesal\PubSub\Topic as BaseTopic;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -26,7 +28,7 @@ class Producer implements ProducerInterface
         $this->name = $name;
     }
 
-    public function publish(\Alfiesal\PubSub\Message $message, \Alfiesal\PubSub\Topic $topic): void
+    public function dispatch(MessageInterface $message, BaseTopic $topic): void
     {
         /**
          * @var AMQPMessage
