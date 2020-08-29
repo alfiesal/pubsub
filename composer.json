@@ -17,7 +17,8 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpstan/phpstan": "^0.12.40",
         "phpspec/phpspec": "^6.2",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^9",
+        "vimeo/psalm": "^3.14"
     },
     "autoload": {
         "psr-4": {
@@ -28,9 +29,7 @@
     "scripts": {
         "precommit": [
             "@cs:fix",
-            "@phpstan",
-            "@test:spec",
-            "@test:phpunit"
+            "@static:analyze"
         ],
         "build": [
             "@static:analyze",
@@ -39,11 +38,13 @@
         ],
         "static:analyze": [
             "php-cs-fixer fix --dry-run",
-            "@phpstan"
+            "@phpstan",
+            "@psalm,"
         ],
         "cs:fix": "php-cs-fixer fix",
         "test:spec": "vendor/bin/phpspec run",
         "test:phpunit": "vendor/bin/phpunit tests",
-        "phpstan": "vendor/bin/phpstan analyse -l 1 src tests"
+        "phpstan": "vendor/bin/phpstan analyse -l 1 src tests",
+        "psalm": "vendor/bin/psalm"
     }
 }
