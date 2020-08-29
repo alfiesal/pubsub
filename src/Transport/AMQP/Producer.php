@@ -30,11 +30,10 @@ class Producer implements ProducerInterface
 
     public function dispatch(MessageInterface $message, BaseTopic $topic): void
     {
-        /**
-         * @var AMQPMessage
-         */
+        $message->addHeader('producer', $this->name);
+
+        /** @var AMQPMessage */
         $amqpMessage = $message->transportMessage();
-        $amqpMessage->set('publisher', $this->name);
 
         $this->channel->basic_publish(
             $amqpMessage,

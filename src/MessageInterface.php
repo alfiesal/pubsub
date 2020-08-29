@@ -13,4 +13,6 @@ interface MessageInterface
     public function headers(): array;
 
     public function header(string $name, $default = null);
+
+    public function addHeader(string $name, $value): void;
 }

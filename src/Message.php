@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Alfiesal\PubSub;
 
+use DateTimeInterface;
+
 class Message implements MessageInterface
 {
     private $name;
@@ -17,6 +19,8 @@ class Message implements MessageInterface
         $this->name = $name;
         $this->payload = $payload;
         $this->headers = $headers;
+
+        $headers['timestamp'] = (new \DateTime('now'))->format(DateTimeInterface::RFC3339_EXTENDED);
     }
 
     public function name(): string
@@ -37,5 +41,10 @@ class Message implements MessageInterface
     public function header(string $name, $default = null)
     {
         return $this->headers[$name] ?? $default;
+    }
+
+    public function addHeader(string $name, $value): void
+    {
+        $this->headers[$name] = $value;
     }
 }

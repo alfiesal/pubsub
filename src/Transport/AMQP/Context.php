@@ -26,7 +26,7 @@ class Context implements ContextInterface
 
     public function createTopic(string $name = ''): Topic
     {
-        return new Topic($name);
+        return new AMQPTopic($name);
     }
 
     public function declareTopic(AMQPTopic $topic): void
@@ -55,7 +55,7 @@ class Context implements ContextInterface
         );
     }
 
-    public function bind(Queue $queue, Topic $topic)
+    public function bind(Queue $queue, Topic $topic): void
     {
         $this->channel->queue_bind(
             $queue->name(),
