@@ -17,4 +17,21 @@ class ContextTest extends TestCase
 
         self::assertInstanceOf(Topic::class, $topic);
     }
+
+    public function test_declare_topic(): void
+    {
+        $channelMock = $this->createMock(AMQPChannel::class);
+        $channelMock->expects(self::once())
+            ->method('exchange_declare')
+            ->with(
+                self::equalTo('amqp.topic'),
+                self::equalTo('topic'),
+                self::isFalse(),
+                self::isTrue(),
+            );
+
+        $context = new Context($channelMock);
+
+        $context->declareTopic(new Topic());
+    }
 }
