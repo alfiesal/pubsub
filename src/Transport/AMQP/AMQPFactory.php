@@ -18,9 +18,9 @@ class AMQPFactory implements TransportInterface
 
         $connection = new AMQPStreamConnection(
             $config['host'],
-            $config['port'],
+            (string) $config['port'],
             $config['user'],
-            $config['password'],
+            $config['pass'],
         );
 
         return new self($connection);
