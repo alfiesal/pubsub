@@ -10,9 +10,9 @@ interface ContextInterface
 
     public function createQueue(string $name): Queue;
 
-    public function bind(Queue $queue, Topic $topic): void;
+    public function bind(Queue $queue, Topic $topic, string $routingKey): void;
 
     public function createProducer(string $name): ProducerInterface;
 
-    public function createConsumer(string $name): void;
+    public function createConsumer(): ConsumerInterface;
 }

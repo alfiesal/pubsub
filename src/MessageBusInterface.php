@@ -7,4 +7,6 @@ namespace Alfiesal\PubSub;
 interface MessageBusInterface
 {
     public function dispatch(Message $message): void;
+
+    public function consume(): void;
 }

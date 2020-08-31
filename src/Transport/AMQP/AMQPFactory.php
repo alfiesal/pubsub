@@ -34,7 +34,7 @@ class AMQPFactory implements TransportInterface
     public function createContext(): ContextInterface
     {
         $channel = $this->connection->channel();
-        $channel->basic_qos(null, 50, null);
+        $channel->basic_qos(null, 50, false);
 
         return new Context($channel);
     }

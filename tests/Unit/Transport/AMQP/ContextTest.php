@@ -3,6 +3,8 @@
 namespace Alfiesal\PubSub\Tests\Unit\Transport\AMQP;
 
 use Alfiesal\PubSub\Transport\AMQP\Context;
+use Alfiesal\PubSub\Transport\AMQP\Producer;
+use Alfiesal\PubSub\Transport\AMQP\Queue;
 use Alfiesal\PubSub\Transport\AMQP\Topic;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PHPUnit\Framework\TestCase;
@@ -33,5 +35,26 @@ class ContextTest extends TestCase
         $context = new Context($channelMock);
 
         $context->declareTopic(new Topic());
+    }
+
+    public function test_create_producer(): void
+    {
+        $context = new Context($this->createMock(AMQPChannel::class));
+
+        $producer = $context->createProducer('producer-name');
+
+        self::assertInstanceOf(Producer::class, $producer);
+    }
+
+    public function test_bind(): void
+    {
+        $channelMock = $this->createMock(AMQPChannel::class);
+        $channelMock->expects(self::once())
+            ->method('queue_bind')
+            ->with(self::equalTo('queue-name'), self::equalTo('topic-name'));
+
+        $context = new Context($channelMock);
+
+        $context->bind(new Queue('queue-name'), new Topic('topic-name'));
     }
 }

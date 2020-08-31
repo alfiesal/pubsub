@@ -12,14 +12,8 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class Producer implements ProducerInterface
 {
-    /**
-     * @var AMQPChannel
-     */
     private $channel;
 
-    /**
-     * @var string
-     */
     private $name;
 
     public function __construct(string $name, AMQPChannel $channel)
@@ -34,7 +28,6 @@ class Producer implements ProducerInterface
 
         /** @var AMQPMessage */
         $amqpMessage = $message->transportMessage();
-
         $this->channel->basic_publish(
             $amqpMessage,
             $topic->name(),

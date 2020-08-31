@@ -23,7 +23,7 @@ class Topic extends BaseTopic
     private $durable;
 
     public function __construct(
-        string $name = 'amqp.topic',
+        string $name = 'amq.topic',
         string $type = 'topic',
         bool $passive = false,
         bool $durable = true
