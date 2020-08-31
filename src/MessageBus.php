@@ -10,24 +10,24 @@ class MessageBus implements MessageBusInterface
 {
     private $transport;
 
-    private $producerName;
+    private $serviceName;
 
     private $bindings;
 
     public function __construct(
         TransportInterface $transport,
-        string $producerName,
+        string $serviceName,
         array $bindings
     ) {
         $this->transport = $transport;
-        $this->producerName = $producerName;
+        $this->serviceName = $serviceName;
         $this->bindings = $bindings;
     }
 
     public function dispatch(Message $message): void
     {
         $context = $this->transport->createContext();
-        $producer = $context->createProducer($this->producerName);
+        $producer = $context->createProducer($this->serviceName);
 
         $producer->dispatch($message, $context->createTopic());
     }
@@ -37,12 +37,12 @@ class MessageBus implements MessageBusInterface
         $context = $this->transport->createContext();
         $consumer = $context->createConsumer();
 
-        $queue = new \Alfiesal\PubSub\Transport\AMQP\Queue('mailing-microservice');
+        $topic = $context->createTopic();
+        $queue = $context->createQueue($this->serviceName);
         $context->declareQueue($queue);
 
-        foreach ($this->bindings as $event => $handler) {
-            $topic = new \Alfiesal\PubSub\Transport\AMQP\Topic();
-            $context->bind($queue, $topic, $event);
+        foreach ($this->bindings as $routingKey => $handler) {
+            $context->bind($queue, $topic, $routingKey);
         }
 
         $consumer->consume($queue, $this->bindings);

@@ -26,7 +26,7 @@ class ContextTest extends TestCase
         $channelMock->expects(self::once())
             ->method('exchange_declare')
             ->with(
-                self::equalTo('amqp.topic'),
+                self::equalTo('amq.topic'),
                 self::equalTo('topic'),
                 self::isFalse(),
                 self::isTrue(),
@@ -51,10 +51,14 @@ class ContextTest extends TestCase
         $channelMock = $this->createMock(AMQPChannel::class);
         $channelMock->expects(self::once())
             ->method('queue_bind')
-            ->with(self::equalTo('queue-name'), self::equalTo('topic-name'));
+            ->with(
+                self::equalTo('queue-name'),
+                self::equalTo('topic-name'),
+                self::equalTo('routing-key'),
+            );
 
         $context = new Context($channelMock);
 
-        $context->bind(new Queue('queue-name'), new Topic('topic-name'));
+        $context->bind(new Queue('queue-name'), new Topic('topic-name'), 'routing-key');
     }
 }

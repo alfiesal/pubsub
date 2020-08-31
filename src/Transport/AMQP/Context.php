@@ -42,10 +42,10 @@ class Context implements ContextInterface
 
     public function createQueue(string $name): Queue
     {
-        return new Queue($name);
+        return new AMQPQueue($name);
     }
 
-    public function declareQueue(AMQPQueue $queue): void
+    public function declareQueue(Queue $queue): void
     {
         $this->channel->queue_declare(
             $queue->name(),
