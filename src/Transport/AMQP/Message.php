@@ -10,6 +10,15 @@ use PhpAmqpLib\Wire\AMQPTable;
 
 class Message extends BaseMessage
 {
+    public static function fromTransport(AMQPMessage $message): self
+    {
+        return new self(
+            $message->get('routing_key'),
+            json_decode($message->getBody(), true),
+            $message->get('application_headers')->getNativeData()
+        );
+    }
+
     public function transportMessage(): AMQPMessage
     {
         return new AMQPMessage(
@@ -19,7 +28,6 @@ class Message extends BaseMessage
                 'content_encoding' => 'utf-8',
                 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
                 'application_headers' => new AMQPTable($this->headers()),
-                'type' => $this->name(),
             ]
         );
     }

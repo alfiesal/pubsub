@@ -28,17 +28,20 @@ class Consumer implements ConsumerInterface
             false,
             false,
             function (AMQPMessage $message) use ($bindings) {
-                $this->messageHandler($message, $bindings);
+                $this->handleMessage($message, $bindings);
             }
         );
 
         while (true) {
-            $this->channel->wait(null, false, 1);
+            $this->channel->wait(null, false, 1000);
         }
     }
 
-    public function messageHandler(AMQPMessage $message, array $bindings): void
+    public function handleMessage(AMQPMessage $message, array $bindings): void
     {
+        $handler = $bindings[$message->get('routing_key')]['handler'];
+        $handler(Message::fromTransport($message));
+
         $message->ack();
     }
 }

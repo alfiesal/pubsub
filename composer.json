@@ -29,7 +29,8 @@
     "scripts": {
         "precommit": [
             "@cs:fix",
-            "@static:analyze"
+            "@static:analyze",
+            "@test"
         ],
         "build": [
             "@static:analyze",
@@ -40,6 +41,10 @@
             "php-cs-fixer fix --dry-run",
             "@phpstan",
             "@psalm,"
+        ],
+        "test": [
+            "@test:spec",
+            "@test:phpunit"
         ],
         "cs:fix": "php-cs-fixer fix",
         "test:spec": "vendor/bin/phpspec run",
