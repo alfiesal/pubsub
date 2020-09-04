@@ -93,7 +93,7 @@ class ContextTest extends TestCase
     {
         $context = new Context($this->createMock(AMQPChannel::class));
 
-        $consumer = $context->createConsumer('consumer-name');
+        $consumer = $context->createConsumer();
 
         self::assertInstanceOf(Consumer::class, $consumer);
     }
