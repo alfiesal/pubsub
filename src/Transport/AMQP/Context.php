@@ -45,7 +45,7 @@ class Context implements ContextInterface
         return new AMQPQueue($name);
     }
 
-    public function declareQueue(Queue $queue): void
+    public function declareQueue(AMQPQueue $queue): void
     {
         $this->channel->queue_declare(
             $queue->name(),
