@@ -36,11 +36,6 @@ final class MessageSpec extends ObjectBehavior
         $this->payload()->shouldBe(self::PAYLOAD);
     }
 
-    public function it_returns_headers(): void
-    {
-        $this->headers()->shouldBe(self::HEADERS);
-    }
-
     public function it_returns_header(): void
     {
         $this->header('header-name-1')->shouldBe('header-value-1');

@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Alfiesal\PubSub;
 
 use DateTimeInterface;
+use Ramsey\Uuid\Uuid;
 
 class Message implements MessageInterface
 {
+    private $id;
+
     private $name;
 
     private $headers;
@@ -16,11 +19,17 @@ class Message implements MessageInterface
 
     public function __construct(string $name, array $payload, array $headers = [])
     {
+        $this->id = Uuid::uuid4()->toString();
         $this->name = $name;
         $this->payload = $payload;
         $this->headers = $headers;
 
-        $headers['timestamp'] = (new \DateTime('now'))->format(DateTimeInterface::RFC3339_EXTENDED);
+        $this->headers['timestamp'] = (new \DateTime('now'))->format(DateTimeInterface::RFC3339_EXTENDED);
+    }
+
+    public function id(): string
+    {
+        return $this->id;
     }
 
     public function name(): string

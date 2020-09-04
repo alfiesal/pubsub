@@ -9,8 +9,14 @@ require_once 'vendor/autoload.php';
 $amqpTransport = AMQPFactory::create('amqp://guest:guest@localhost:8099');
 
 $bus = new MessageBus($amqpTransport, 'user-microservice', []);
-$bus->dispatch(new Message('event.user-microservice.user-registered',[
+$message = new Message('event.user-microservice.user-registered',[
     'userId' => 1000,
     'firstName' => 'John',
     'lastName' => 'Doe'
-]));
+]);
+$bus->dispatch($message);
+
+echo $message->name() .PHP_EOL;
+echo $message->id() .PHP_EOL;
+var_dump($message->payload());
+var_dump($message->headers());

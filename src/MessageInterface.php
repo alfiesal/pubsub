@@ -6,6 +6,8 @@ namespace Alfiesal\PubSub;
 
 interface MessageInterface
 {
+    public function id(): string;
+
     public function name(): string;
 
     public function payload(): array;

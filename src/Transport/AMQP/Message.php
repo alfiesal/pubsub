@@ -24,6 +24,7 @@ class Message extends BaseMessage
         return new AMQPMessage(
             json_encode($this->payload()),
             [
+                'message_id' => $this->id(),
                 'content_type' => 'application/json',
                 'content_encoding' => 'utf-8',
                 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
