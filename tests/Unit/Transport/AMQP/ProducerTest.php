@@ -32,12 +32,12 @@ final class ProducerTest extends TestCase
             ->method('basic_publish')
             ->with(
                 self::isInstanceOf(AMQPMessage::class),
-                self::equalTo('amqp.topic'),
+                self::equalTo('amq.topic'),
                 self::equalTo('message-name'),
             );
 
         $producer = new Producer('producer-name', $channelMock);
 
-        $producer->dispatch(new Message('message-name', []), new Topic('amqp.topic'));
+        $producer->dispatch(new Message('message-name', []), new Topic('amq.topic'));
     }
 }

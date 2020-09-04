@@ -2,6 +2,7 @@
 
 namespace Alfiesal\PubSub\Tests\Unit\Transport\AMQP;
 
+use Alfiesal\PubSub\Transport\AMQP\Consumer;
 use Alfiesal\PubSub\Transport\AMQP\Context;
 use Alfiesal\PubSub\Transport\AMQP\Producer;
 use Alfiesal\PubSub\Transport\AMQP\Queue;
@@ -37,13 +38,30 @@ class ContextTest extends TestCase
         $context->declareTopic(new Topic());
     }
 
-    public function test_create_producer(): void
+    public function test_create_queue(): void
     {
         $context = new Context($this->createMock(AMQPChannel::class));
 
-        $producer = $context->createProducer('producer-name');
+        $queue = $context->createQueue('queue-name');
 
-        self::assertInstanceOf(Producer::class, $producer);
+        self::assertInstanceOf(Queue::class, $queue);
+    }
+
+    public function test_declare_queue(): void
+    {
+        $channelMock = $this->createMock(AMQPChannel::class);
+        $channelMock->expects(self::once())
+            ->method('queue_declare')
+            ->with(
+                self::equalTo('queue-name'),
+                self::isFalse(),
+                self::isTrue(),
+                self::isFalse(),
+                self::isFalse()
+            );
+
+        $context = new Context($channelMock);
+        $context->declareQueue(new Queue('queue-name'));
     }
 
     public function test_bind(): void
@@ -60,5 +78,23 @@ class ContextTest extends TestCase
         $context = new Context($channelMock);
 
         $context->bind(new Queue('queue-name'), new Topic('topic-name'), 'routing-key');
+    }
+
+    public function test_create_producer(): void
+    {
+        $context = new Context($this->createMock(AMQPChannel::class));
+
+        $producer = $context->createProducer('producer-name');
+
+        self::assertInstanceOf(Producer::class, $producer);
+    }
+
+    public function test_create_consumer(): void
+    {
+        $context = new Context($this->createMock(AMQPChannel::class));
+
+        $consumer = $context->createConsumer('consumer-name');
+
+        self::assertInstanceOf(Consumer::class, $consumer);
     }
 }

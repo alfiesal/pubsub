@@ -40,7 +40,7 @@
         "static:analyze": [
             "php-cs-fixer fix --dry-run",
             "@phpstan",
-            "@psalm,"
+            "@psalm"
         ],
         "test": [
             "@test:spec",
