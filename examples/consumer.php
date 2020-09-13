@@ -8,7 +8,7 @@ require_once 'vendor/autoload.php';
 
 $amqpTransport = AMQPFactory::create('amqp://guest:guest@localhost:8099');
 
-$bus = new MessageBus($amqpTransport, 'mailing-microservice', [
+$bus = MessageBus::create($amqpTransport, 'mailing-microservice', [
     'event.user-microservice.user-attached' => [
         'handler' => static function(){
             echo 'Handler of event.user-microservice.user-attached'. PHP_EOL;

@@ -8,43 +8,58 @@ use Alfiesal\PubSub\Transport\TransportInterface;
 
 class MessageBus implements MessageBusInterface
 {
-    private $transport;
+    private $producer;
 
-    private $serviceName;
+    private $consumer;
+
+    private $topic;
+
+    private $queue;
 
     private $bindings;
 
-    public function __construct(
+    public static function create(
         TransportInterface $transport,
         string $serviceName,
         array $bindings
+    ): self
+    {
+        $context = $transport->createContext();
+
+        $producer = $context->createProducer($serviceName);
+        $consumer = $context->createConsumer();
+        $queue = $context->createQueue($serviceName);
+        $context->declareQueue($queue);
+        $topic = $context->createTopic();
+
+        foreach ($bindings as $routingKey => $handler) {
+            $context->bind($queue, $topic, $routingKey);
+        }
+
+        return new self($producer, $consumer, $topic, $queue, $bindings);
+    }
+
+    private function __construct(
+        ProducerInterface $producer,
+        ConsumerInterface $consumer,
+        Topic $topic,
+        Queue $queue,
+        array $bindings
     ) {
-        $this->transport = $transport;
-        $this->serviceName = $serviceName;
+        $this->producer = $producer;
+        $this->consumer = $consumer;
+        $this->topic = $topic;
+        $this->queue = $queue;
         $this->bindings = $bindings;
     }
 
     public function dispatch(Message $message): void
     {
-        $context = $this->transport->createContext();
-        $producer = $context->createProducer($this->serviceName);
-
-        $producer->dispatch($message, $context->createTopic());
+        $this->producer->dispatch($message, $this->topic);
     }
 
     public function consume(): void
     {
-        $context = $this->transport->createContext();
-        $consumer = $context->createConsumer();
-
-        $topic = $context->createTopic();
-        $queue = $context->createQueue($this->serviceName);
-        $context->declareQueue($queue);
-
-        foreach ($this->bindings as $routingKey => $handler) {
-            $context->bind($queue, $topic, $routingKey);
-        }
-
-        $consumer->consume($queue, $this->bindings);
+        $this->consumer->consume($this->queue, $this->bindings);
     }
 }
