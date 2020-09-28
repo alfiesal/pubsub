@@ -60,16 +60,16 @@
         },
         {
             "name": "php-amqplib/php-amqplib",
-            "version": "v2.12.0",
+            "version": "v2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-amqplib/php-amqplib.git",
-                "reference": "dfcccd36bf12b4c7cc3ec74d571e00e0f767232e"
+                "reference": "0eaaa9d5d45335f4342f69603288883388c2fe21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/dfcccd36bf12b4c7cc3ec74d571e00e0f767232e",
-                "reference": "dfcccd36bf12b4c7cc3ec74d571e00e0f767232e",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/0eaaa9d5d45335f4342f69603288883388c2fe21",
+                "reference": "0eaaa9d5d45335f4342f69603288883388c2fe21",
                 "shasum": ""
             },
             "require": {
@@ -133,20 +133,20 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2020-08-25T01:39:32+00:00"
+            "time": "2020-09-25T18:34:58+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.28",
+            "version": "2.0.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "d1ca58cf33cb21046d702ae3a7b14fdacd9f3260"
+                "reference": "497856a8d997f640b4a516062f84228a772a48a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d1ca58cf33cb21046d702ae3a7b14fdacd9f3260",
-                "reference": "d1ca58cf33cb21046d702ae3a7b14fdacd9f3260",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/497856a8d997f640b4a516062f84228a772a48a8",
+                "reference": "497856a8d997f640b4a516062f84228a772a48a8",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,6 @@
             "require-dev": {
                 "phing/phing": "~2.7",
                 "phpunit/phpunit": "^4.8.35|^5.7|^6.0",
-                "sami/sami": "~2.0",
                 "squizlabs/php_codesniffer": "~2.0"
             },
             "suggest": {
@@ -239,7 +238,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-08T09:08:33+00:00"
+            "time": "2020-09-08T04:24:43+00:00"
         },
         {
             "name": "ramsey/collection",
