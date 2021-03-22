@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php-amqplib/php-amqplib": "^2.11",
+        "php-amqplib/php-amqplib": "^2.11 || ^3.0",
         "ext-json": "*",
         "ramsey/uuid": "^4.1"
     },
